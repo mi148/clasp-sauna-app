@@ -1,0 +1,11 @@
+stages:
+- upload
+
+upload:
+  stage: upload
+  image: node:10.23.2-alpine3.11
+  script:
+    # Never hard-code .clasprc.json, EVER
+    - cp $CLASPRC_JSON ~/.clasprc.json
+    - echo "{\"scriptId\":\"${SCRIPT_ID}\"}" > .clasp.json
+    - npx @google/clasp push
